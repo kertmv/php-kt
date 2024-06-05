@@ -17,26 +17,44 @@
 	<div id="grad" class="jumbotron text-black">
 	<div class="container">
 	<nav class="navbar navbar-expand-lg navbar-light ">
-	<a class="navbar-brand" href="#"><img src="img/image1.png" width="40px"> vare.com</a>
+	<a class="navbar-brand" href="avaleht.php"> vare.com</a>
 	<div class="collapse navbar-collapse" id="minuMenyy">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-			<a class="nav-link" href="#">Avaleht</a>
+			<a class="nav-link" href="avaleht.php">Avaleht</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="#">Tooted</a>
+			<a class="nav-link" href="tooted.php?leht=tooted">Tooted</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="#">Kontakt</a>
+			<a class="nav-link" href="kontakt.php?leht=kontakt">Kontakt</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="#">Admin</a>
+			<a class="nav-link" href="admin.php?leht=admin">Admin</a>
 			</li>
 			<li class="nav-item">
 			<a class="fa-solid fa-bag-shopping"></a>
 			</li>
 		</ul>
-	  </div>
+	</div>
+	<?php
+    if (!empty($_GET["leht"])) {
+        $leht = htmlspecialchars($_GET["leht"]);
+        $kontroll = in_array($leht, array("tooted", "kontakt", "admin"));
+        if ($leht == "tooted") {
+            include("tooted.php");
+        } else if ($leht == "kontakt") {
+            include("kontakt.php");
+        } else if ($leht == "admin") {
+            include("admin.php");
+        }
+        if ($kontroll == true) {
+            include ($leht.".php");
+        } else {
+            echo "lehte pole!!!";
+        }
+    }
+	?>
 	</nav>
 	<div class="row">
 			<div class="col">
@@ -57,25 +75,26 @@
 	<?php
         $file = fopen('tooted.csv', 'r');
         if ($file !== false) {
-          while (($line = fgetcsv($file)) !== false) {
-            $image = $line[0];
-            $name = $line[1];
-            $price = $line[2];
-      ?>
+        while (($line = fgetcsv($file)) !== false) {
+            $image = $line[1];
+            $name = $line[2];
+            $price = $line[3];
+    ?>
 
         <div class="card border-light">
 		<img src="<?php echo $image; ?>" class="card-img-top" height="300" alt="<?php echo $name; ?>">
-         <div class="card-body">
+        <div class="card-body">
 		<h5 class="card-title"><?php echo $name; ?></h5>
-            <p class="card-text">Hind: <?php echo $price; ?></p>
+        <p class="card-text">Hind: <?php echo $price; ?></p>
         </div>
         </div>
 
 <?php
-          }
-          fclose($file);
         }
-      ?>
+        fclose($file);
+        }
+?>
+
 </div>
 </body>
 </html>
