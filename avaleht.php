@@ -38,6 +38,8 @@
 		</ul>
 	</div>
 	<?php
+
+// dunaamiline veebilehtede muutumine vaata mario lehekulge seal raagib
     if (!empty($_GET["leht"])) {
         $leht = htmlspecialchars($_GET["leht"]);
         $kontroll = in_array($leht, array("tooted", "kontakt", "admin"));
@@ -73,6 +75,7 @@
 	<div class="container mt-5">
     <div class="row row-cols-1 row-cols-md-4 center">
 	<?php
+// avame faili ning kuvame veebilehel sisu
         $file = fopen('tooted.csv', 'r');
         if ($file !== false) {
         while (($line = fgetcsv($file)) !== false) {
