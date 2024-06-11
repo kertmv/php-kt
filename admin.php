@@ -55,16 +55,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
+<?php
                             $fail = fopen('tooted.csv', 'r');
+                            // avame csv faili
                             while (($info = fgetcsv($fail)) !== false) {
+                                // votame info selle seest ja paneme html vormi tabelisse
                                 echo '<tr>';
                                 echo '<td>' . '<img src="' . $info[1] . '" height="100" width="100"></td>';
                                 echo '<td>' . $info[0] . '</td>';
                                 echo '<td>' . $info[2] . '</td>';
                                 echo '<td>' . $info[3] . '</td>';
                                 echo '<td>';
-                                echo '<form action="kustuta-rida.php" method="post">';
+                                echo '<form action="kustuta-rida.php" method="post">'; // kustuta-rida.php nupp
                                 echo '<input type="hidden" name="id" value="' . $info[0] . '">';
                                 echo '<button type="submit" class="btn btn-danger">Kustuta</button>';
                                 echo '</form>';
