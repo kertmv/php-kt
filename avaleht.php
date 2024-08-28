@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+<title>kvare</title>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -38,8 +37,6 @@
 		</ul>
 	</div>
 	<?php
-
-// dunaamiline veebilehtede muutumine vaata mario lehekulge seal raagib
     if (!empty($_GET["leht"])) {
         $leht = htmlspecialchars($_GET["leht"]);
         $kontroll = in_array($leht, array("tooted", "kontakt", "admin"));
@@ -66,7 +63,7 @@
 				<button type="button" class="btn btn-success">Vaata pakkumisi -></button>
 			</div>
 			<div class="col">
-				<img src="img/image1.png" class="img-fluid float-right" width="1000">
+				<img src="img/image1.png" class="img-fluid float-right" width="1000" alt="">
 			</div>
 		</div>
 	</div>
@@ -75,7 +72,6 @@
 	<div class="container mt-5">
     <div class="row row-cols-1 row-cols-md-4 center">
 	<?php
-// avame faili ning kuvame veebilehel sisu
         $file = fopen('tooted.csv', 'r');
         if ($file !== false) {
         while (($line = fgetcsv($file)) !== false) {
@@ -98,6 +94,7 @@
         }
 ?>
 
+</div>
 </div>
 </body>
 </html>

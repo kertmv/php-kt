@@ -1,13 +1,28 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // vaata kas request on post tyybiga
+    // Kontrollime, kas tegemist on POST-päringuga
     $fail = 'tooted.csv';
-    // sea faili nimi
+    // Määrame CSV faili nime
     $id = count(file($fail)) + 1;
-    // loe faili ridade arv ja lisa 1
-    $pilt = 'img/product-1.jpg';
-    // pildi asukoht/tootepilt
+    // Loeme ridade arvu ja suurendame ID-d
+
+    // Kontrollime, kas pildifail on üles laaditud
+    if (isset($_FILES['pilt']) && $_FILES['pilt']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = 'img/';
+        $uploadFile = $uploadDir . basename($_FILES['pilt']['name']);
+        
+        // Laadime üles faili
+        if (move_uploaded_file($_FILES['pilt']['tmp_name'], $uploadFile)) {
+            $pilt = $uploadFile;
+        } else {
+            echo "Faili üleslaadimine ebaõnnestus!";
+            exit();
+        }
+    } else {
+        echo "Pilt on kohustuslik!";
+        exit();
+    }
 
     // $produkt on massiiv, mis sisaldab toote andmeid
     $produkt = [
@@ -17,11 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST['hind'],
     ];
 
-    // avame csv faili
+    // Avame CSV faili ja lisame toote andmed
     $avacsv = fopen($fail, 'a');
-    // paneme csv faili saadud andmed eelmisest kysitlusest
     fputcsv($avacsv, $produkt);
-    $id++;
     fclose($avacsv);
 
     header('Location: admin.php');

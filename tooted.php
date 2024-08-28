@@ -12,6 +12,12 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 <script src="https://kit.fontawesome.com/5f11feec13.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="kt.css">
+
+<style>
+    .card {
+        width: 250px;
+    }
+</style>
 </head>
 <body>
 	<div id="grad" class="jumbotron text-black">
@@ -47,9 +53,9 @@
         $file = fopen('tooted.csv', 'r');
         if ($file !== false) {
         while (($line = fgetcsv($file)) !== false) {
-            $image = $line[0];
-            $name = $line[1];
-            $price = $line[2];
+            $image = $line[1];
+            $name = $line[2];
+            $price = $line[3];
     ?>
 
         <div class="card border-light">
